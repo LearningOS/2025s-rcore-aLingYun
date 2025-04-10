@@ -139,9 +139,9 @@ impl TaskManager {
 
     /// increase current task system call count
     fn record_sys_call_count(&self, id: usize) {
-        let inner = self.inner.exclusive_access();
-        let mut curr_task = inner.tasks[inner.current_task];
-        curr_task.sys_call_cnt[id] += 1;
+        let mut inner = self.inner.exclusive_access();
+        let task_id = inner.current_task;
+        inner.tasks[task_id].sys_call_cnt[id] += 1;
         drop(inner);
     }
 
